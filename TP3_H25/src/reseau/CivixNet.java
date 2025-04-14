@@ -33,8 +33,7 @@ public class CivixNet {
      * @return une map représentant les utilisateurs et leurs abonnements
      */
     public Map<Utilisateur, Set<Utilisateur>> getUtilisateurs() {
-        // TODO: Compléter cette méthode
-        return null;
+        return utilisateurs;
     }
 
     /**
@@ -45,7 +44,12 @@ public class CivixNet {
      * @throws IllegalArgumentException si le nom ou le mot de passe est invalide
      */
     public void ajouterUtilisateur(String username, String password) {
-        // TODO: Compléter cette méthode
+        Utilisateur newUser = new Utilisateur(username, password);
+        if (!newUser.getUsername().equals(username) || !newUser.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Le nom ou le mot de passe est invalide.");
+        }
+
+        this.utilisateurs.put(newUser, new HashSet<Utilisateur>());
     }
 
     /**
@@ -55,7 +59,9 @@ public class CivixNet {
      * @param nouvelAbonnement l'utilisateur à suivre
      */
     public void ajouterAbonnement(Utilisateur compte, Utilisateur nouvelAbonnement) {
-        // TODO: Compléter cette méthode
+        if (utilisateurs.containsKey(compte)) {
+            utilisateurs.get(compte).add(nouvelAbonnement);
+        }
     }
 
     /**
@@ -65,7 +71,7 @@ public class CivixNet {
      * @param abonnementARetirer l'utilisateur à ne plus suivre
      */
     public void retirerAbonnement(Utilisateur compte, Utilisateur abonnementARetirer) {
-        // TODO: Compléter cette méthode
+        utilisateurs.get(compte).remove(abonnementARetirer);
     }
 
     /**
@@ -75,7 +81,7 @@ public class CivixNet {
      * @param nouveauxAbonnements la liste des nouveaux abonnements
      */
     public void ajouterAbonnements(Utilisateur compte, List<Utilisateur> nouveauxAbonnements) {
-        // TODO: Compléter cette méthode
+        utilisateurs.get(compte).addAll(nouveauxAbonnements);
     }
 
     /**
@@ -85,7 +91,7 @@ public class CivixNet {
      * @param abonnementsARetirer la liste des abonnements à supprimer
      */
     public void retirerAbonnements(Utilisateur compte, List<Utilisateur> abonnementsARetirer) {
-        // TODO: Compléter cette méthode
+        utilisateurs.get(compte).removeAll(abonnementsARetirer);
     }
 
     /**
@@ -96,7 +102,9 @@ public class CivixNet {
      * @throws RuntimeException si l'utilisateur n'existe pas
      */
     public Utilisateur obtenirUtilisateurAPartirDuUsername(String username) {
-        // TODO: Compléter cette méthode
+        for (Utilisateur u : utilisateurs.keySet()) {
+
+        }
         return null;
     }
 
@@ -115,12 +123,12 @@ public class CivixNet {
     /**
      * Retourne la liste des utilisateurs affectés par une fausse information initiée par un utilisateur donné,
      * à l'aide d'une approche récursive. Cette méthode appelle la méthode privée propagerRecursive.
-     *
+     * <p>
      * La propagation se fait jusqu'à deux niveaux de connexions :
      * - niveau 0 : l'utilisateur initial
      * - niveau 1 : ses abonnés directs
      * - niveau 2 : les abonnés de ses abonnés
-     *
+     * <p>
      * Les doublons sont éliminés, et le résultat est retourné trié en ordre alphabétique inverse.
      *
      * @param username le nom d'utilisateur de la personne ayant lancé la fausse information

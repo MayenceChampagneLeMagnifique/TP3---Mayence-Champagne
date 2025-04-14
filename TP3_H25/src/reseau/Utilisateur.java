@@ -113,7 +113,9 @@ public class Utilisateur implements Comparable<Utilisateur> {
     public int compareTo(Utilisateur u) {
         int compare;
         compare = this.username.compareToIgnoreCase(u.username);
+        if (compare < 0) return -1;
+        if (compare > 0) return 1;
 
-        return compare;
+        return 0;
     }
 }
