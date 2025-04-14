@@ -1,0 +1,44 @@
+{
+  "utilisateurs": [
+    {
+      "username": "alice",
+      "password": "Alice123secure",
+      "abonnements": ["bob","charlie","diane","george"]
+    },
+    {
+      "username": "bob",
+      "password": "BobSecure456",
+      "abonnements": ["charlie"]
+    },
+    {
+      "username": "charlie",
+      "password": "Ch@rlie78999",
+      "abonnements": ["eve"]
+    },
+    {
+      "username": "diane",
+      "password": "DianePwd54321",
+      "abonnements": ["alice","charlie","frank"]
+    },
+    {
+      "username": "eve",
+      "password": "EvE159753AaBb",
+      "abonnements": []
+    },
+    {
+      "username": "frank",
+      "password": "Frank456BbbCc",
+      "abonnements": ["george", "harriet"]
+    },
+    {
+      "username": "george",
+      "password": "GeorgePass12345",
+      "abonnements": ["harriet"]
+    },
+    {
+      "username": "harriet",
+      "password": "HarrietXyz88_2002",
+      "abonnements": ["alice", "frank"]
+    }
+  ]
+}
