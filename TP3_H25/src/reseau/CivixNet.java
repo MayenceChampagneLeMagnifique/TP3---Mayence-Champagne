@@ -18,7 +18,7 @@ public class CivixNet {
      * La carte représentant les utilisateurs et leurs abonnements.
      * La clé est un utilisateur, et la valeur est l'ensemble des utilisateurs qu'il suit.
      */
-    private Map<Utilisateur, Set<Utilisateur>> utilisateurs;
+    private TreeMap<Utilisateur, Set<Utilisateur>> utilisateurs;
 
     /**
      * Constructeur par défaut. Initialise un réseau vide.
@@ -45,7 +45,7 @@ public class CivixNet {
      */
     public void ajouterUtilisateur(String username, String password) {
         Utilisateur newUser = new Utilisateur(username, password);
-        if (!newUser.getUsername().equals(username) || !newUser.getPassword().equals(password)) {
+        if (username == null || password == null) {
             throw new IllegalArgumentException("Le nom ou le mot de passe est invalide.");
         }
 
@@ -103,8 +103,11 @@ public class CivixNet {
      */
     public Utilisateur obtenirUtilisateurAPartirDuUsername(String username) {
         for (Utilisateur u : utilisateurs.keySet()) {
-
+            if (u.getUsername().equals(username)) {
+                return u;
+            }
         }
+
         return null;
     }
 
@@ -116,7 +119,10 @@ public class CivixNet {
      * @return {@code true} si u1 suit u2, sinon {@code false}
      */
     public boolean abonnementMutuel(Utilisateur u1, Utilisateur u2) {
-        // TODO: Compléter cette méthode
+
+        if (utilisateurs.containsKey(u1) && utilisateurs.containsKey(u2)) {
+            return utilisateurs.get(u1).contains(u2) && utilisateurs.get(u2).contains(u1);
+        }
         return false;
     }
 
@@ -148,7 +154,10 @@ public class CivixNet {
      * @param affectes  ensemble cumulatif des utilisateurs affectés par la propagation
      */
     private void propagerRecursive(Utilisateur courant, int niveau, int maxNiveau, Set<Utilisateur> affectes) {
-        // TODO: Compléter cette méthode
+        while (niveau > 0) {
+
+
+        }
     }
 
 
@@ -159,7 +168,18 @@ public class CivixNet {
      */
     @Override
     public String toString() {
-        // TODO: Compléter cette méthode
-        return null;
+        String str = "=== Réseau CivixNet ===";
+        for (Utilisateur u : utilisateurs.keySet()) {
+            str += "\n" + u.getUsername() + " suit : ";
+            for (Utilisateur abonnement : utilisateurs.get(u)) {
+
+                if (abonnement != null) {
+                    str += "aucun";
+                }
+                str += abonnement.getUsername() + ", ";
+            }
+        }
+
+        return str;
     }
 }
