@@ -103,12 +103,13 @@ public class CivixNet {
      */
     public Utilisateur obtenirUtilisateurAPartirDuUsername(String username) {
         for (Utilisateur u : utilisateurs.keySet()) {
-            if (u.getUsername().equals(username)) {
-                return u;
-            }
+
+                if (u.getUsername().equals(username)) {
+                    return u;
+                }
         }
 
-        return null;
+        throw new RuntimeException("Utilisateur introuvable");
     }
 
     /**
@@ -141,8 +142,14 @@ public class CivixNet {
      * @return une liste triée en ordre alphabétique inverse des utilisateurs affectés sans doublons
      */
     public ArrayList<Utilisateur> propagationFausseInformationRecursive(String username) {
-        // TODO: Compléter cette méthode
-        return null;
+        Utilisateur u = obtenirUtilisateurAPartirDuUsername(username);
+        Set<Utilisateur> affectes = new HashSet<>();
+
+        propagerRecursive(u, 0, 2, affectes);
+        ArrayList<Utilisateur> pesteBubonique = new ArrayList<>(affectes); // :)
+        pesteBubonique.sort((u1, u2) -> u2.getUsername().compareTo(u1.getUsername()));
+
+        return pesteBubonique;
     }
 
     /**
@@ -154,9 +161,13 @@ public class CivixNet {
      * @param affectes  ensemble cumulatif des utilisateurs affectés par la propagation
      */
     private void propagerRecursive(Utilisateur courant, int niveau, int maxNiveau, Set<Utilisateur> affectes) {
-        while (niveau > 0) {
+        if (niveau > maxNiveau || affectes.contains(courant)) {
+            return;
+        }
+        affectes.add(courant);
 
-
+        for (Utilisateur abonnement : utilisateurs.get(courant)) {
+            propagerRecursive(abonnement, niveau++, maxNiveau, affectes);
         }
     }
 

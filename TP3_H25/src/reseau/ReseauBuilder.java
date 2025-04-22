@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * ou pour en sauvegarder l'état sur disque.
  * </p>
  */
-public class ReseauBuilder {
+public class ReseauBuilder implements Serializable {
 
     /**
      * Charge un objet {@link CivixNet} à partir d'un fichier JSON.
