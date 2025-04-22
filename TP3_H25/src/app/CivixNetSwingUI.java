@@ -2,6 +2,7 @@ package app;
 
 import reseau.CivixNet;
 import reseau.ReseauBuilder;
+import reseau.Utilisateur;
 
 import javax.swing.*;
 import java.awt.*;
@@ -163,7 +164,7 @@ public class CivixNetSwingUI extends JPanel {
      * @throws Exception Si le fichier JSON est invalide.
      */
     public static void main(String[] args) throws Exception {
-        CivixNet reseau = ReseauBuilder.chargerDepuisJSON("donnees\\reseau.json");
+        CivixNet reseau = ReseauBuilder.chargerDepuisJSON("C:\\Users\\Boome\\OneDrive\\Bureau\\TP3---Mayence-Champagne\\TP3_H25\\src\\donnees\\reseau.json");
 
         JFrame frame = new JFrame("CivixNet - Réseau Social");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
